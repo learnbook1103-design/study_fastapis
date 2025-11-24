@@ -13,7 +13,7 @@
 <body>
     <div class="container mt-5">
 
-        <h2 class="mb-4 text-primary">제품 목록</h2> 
+        <h2 class="mb-4 text-primary text-center">제품 목록</h2> 
         
         <table class="table table-striped table-hover table-bordered align-middle">
             <thead class="table-dark">
@@ -30,7 +30,7 @@
                     <td>{{ product.name }}</td>
 
                     <!-- price가 str이어도 숫자로 변환되도록 float 처리 -->
-                    <td>${{ '%.2f'|format(product.price | float) }}</td>
+                    <td>{{ '%.2f'|format(product.price | float) }}</td>
                     <!-- for문을 이용한 tags 표현
                     {% for tag in product.tags %}
                         <span class="badge bg-primary rounded-pill me-1 mb-1 d-inline-block">
