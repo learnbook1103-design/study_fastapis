@@ -31,11 +31,12 @@
 
                     <!-- price가 str이어도 숫자로 변환되도록 float 처리 -->
                     <td>${{ '%.2f'|format(product.price | float) }}</td>
-                    <!-- for문을 이용한 tags 표현 -->
-                    <!-- {% for tag in product.tags %}
-                                <span class="badge bg-primary rounded-pill me-1 mb-1 d-inline-block">
-                                    {{ tag }}
-                                </span> -->
+                    <!-- for문을 이용한 tags 표현
+                    {% for tag in product.tags %}
+                        <span class="badge bg-primary rounded-pill me-1 mb-1 d-inline-block">
+                         {{ tag }}
+                         </span>
+                    {%endfor%} -->
                     <!-- tags를 , 로 연결 -->
                     <td>{{ product.tags | join(", ") }}</td>
                 </tr>
