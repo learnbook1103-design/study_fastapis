@@ -2,6 +2,9 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
+from routes.todos import router as todos_router
+app.include_router(todos_router, prefix="/todos")
+
 # http://localhost:8000/
 @app.get("/")
 def read_root():
@@ -79,6 +82,28 @@ async def products_list(request:Request) :
         , "products_list" : products
     }
     return templates.TemplateResponse("jina2.html", context)
+
+# http://localhost:8000/board/detail_json?title=Third%20Post&content=This%20is%20the%20third%20post.
+@app.get("/board/detail_json")
+async def board_details_json(request: Request):
+    params = dict(request.query_params)
+    return {"title": params["title"], "content": params["content"]}
+
+# http://localhost:8000/board/detail_post_json?title=Third%20Post&content=This%20is%20the%20third%20post.
+@app.post("/board/detail_post_json")
+async def board_details_json(request: Request):
+    params = dict(await request.form())
+    return {"title": params["title"], "content": params.get("content")}
+
+# http://localhost:8000/board/detail_html
+@app.get("/board/detail_html")
+async def main_html(request: Request):
+    return templates.TemplateResponse("boards/detail.html", {"request": request})
+
+# http://localhost:8000/board/detail_html/{detail_id}
+@app.get("/board/detail_html/{detail_id}")
+async def main_html(request: Request, detail_id):
+    return templates.TemplateResponse("boards/detail.html", {"request": request})
 
 # 정적 파일 설정
 from fastapi.staticfiles import StaticFiles
